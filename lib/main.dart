@@ -16,7 +16,7 @@ void main() async {
 
   final eventRepository = EventRepoimpl(sqlFliteDb);
 
-  // Provide the Bloc here since we are using GoRouter to route to the page
+  // So the Cubit has an application-wide lifecycle and is accessible across all routes
   runApp(
     BlocProvider(
       create: (_) => EventCubit(eventRepository),

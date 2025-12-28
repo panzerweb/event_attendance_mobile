@@ -6,8 +6,42 @@ import 'dart:async';
 // import 'package:flutter/widgets.dart';
 
 /*
-
+  SQFlite Database Helper
   Database helper to avoid SQL injection and exposure or raw SQL query
+
+  Sample usage for implementation:
+
+    class EventRepoimpl implements EventRepository {
+      final DatabaseHelper db;
+
+      // Methods
+    }
+
+  Allows the implementation to access the database methods such as 
+  CREATE, READ, UPDATE, and DELETE
+  
+  Usage for main.dart:
+    void main() async {
+      WidgetsFlutterBinding.ensureInitialized();
+
+      final sqlFliteDb = DatabaseHelper.instance;
+
+      final eventRepository = EventRepoimpl(sqlFliteDb);
+
+      // So the Cubit has an application-wide lifecycle and is 
+      // accessible across all routes
+      
+      runApp(
+        BlocProvider(
+          create: (_) => EventCubit(eventRepository),
+          child: const MyApp(), //Now EventCubit is available to all the routes
+        ),
+      );
+  
+  Here, we create and inject the database and repository before the app starts, 
+  then provide the Cubit at the root of the widget tree so it is available across 
+  all routes inside MyApp().
+}
 
 */
 

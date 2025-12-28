@@ -1,5 +1,16 @@
 import 'package:flutter/material.dart';
 
+/*
+  COMPONENT FOLDER: Common widgets that are reusable to the entire application
+
+  Reusable component for each TextFields and Controllers in a form or user input
+  fields.
+
+  Usage:
+    FieldLabel(message: string),
+    TextField(params...),
+*/
+
 class FieldLabel extends StatelessWidget {
   final String message;
   const FieldLabel({super.key, required this.message});

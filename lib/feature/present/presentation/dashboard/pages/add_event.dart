@@ -7,6 +7,7 @@ import 'package:event_attendance_mobile/feature/present/presentation/event_detai
 import 'package:event_attendance_mobile/feature/present/presentation/event_details/widgets/build_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 /*
   Widget screen for adding an event
 */
@@ -40,6 +41,7 @@ class _AddEventState extends State<AddEvent> {
     super.dispose();
   }
 
+  // DatePicker
   Future<void> _pickDate({
     required DateTime? initialDate,
     required Function(DateTime) onSelected,
@@ -57,6 +59,7 @@ class _AddEventState extends State<AddEvent> {
     }
   }
 
+  // Submit the fields to the EventCubit adding event method
   void _submit() {
     if (!_formKey.currentState!.validate()) return;
 

@@ -8,6 +8,13 @@ import 'package:event_attendance_mobile/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+/*
+  GOROUTER
+
+  Entire application's main routing logic
+
+*/
+
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final GoRouter router = GoRouter(
@@ -23,6 +30,7 @@ final GoRouter router = GoRouter(
           path: '/dashboard',
           builder: (context, state) => const DashboardView(),
           routes: [
+            // Routes associated with Dashboard
             GoRoute(
               path: 'event',
               builder: (context, state) {
@@ -37,6 +45,8 @@ final GoRouter router = GoRouter(
             ),
           ],
         ),
+
+        // Tabs here...
         GoRoute(
           path: '/overview',
           builder: (context, state) => const Overview(),

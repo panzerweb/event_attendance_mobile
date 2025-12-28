@@ -2,15 +2,22 @@ import 'package:event_attendance_mobile/core/styles/palette.dart';
 import 'package:flutter/material.dart';
 
 /*
+  COMPONENT FOLDER: Common widgets that are reusable to the entire application
 
-  Main appbar use by Scaffold widget of Flutter
+  Main appbar for appbar argument in the 
+  Scaffold widget as a PreferredSizeWidget
 
-  Leading should be the official logo of the app
+  Note:
+    Leading should be the official logo of the app
 
-  Title can be the App name, or anything else
+    Title can be the App name, or a tab's title
 
-  Actions should have a Profile button
+    Actions should have a Profile button that leads to a route for profile
+    page.
 
+
+  Usage:
+    appbar: ScaffoldAppBar(title: string),
 */
 
 class ScaffoldAppbar extends StatelessWidget implements PreferredSizeWidget {

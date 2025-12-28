@@ -1,5 +1,32 @@
 import 'package:flutter/material.dart';
 
+/*
+  REUSABLE:
+    Helper function for every delete function
+    Shows a dialog for confirming whether to delete an entity (event, attendee)
+
+    Usage:
+    
+      onPressed: () async {
+        _deleteEvent(widget.event);
+      },
+
+      // DELETE AN EVENT
+      Future<void> _deleteEvent(EventEntity event) async {
+        await showDeleteDialog<EventEntity>(
+          context: context,
+          entity: event,
+          title: "Delete Event",
+          message: "Are you sure you want to delete this event?",
+          onDelete: (event) {
+            return context.read<EventCubit>().deleteEventCubit(event);
+          },
+        );
+      }
+
+
+*/
+
 Future<void> showDeleteDialog<T>({
   required BuildContext context,
   required T entity,

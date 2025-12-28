@@ -1,6 +1,16 @@
 import 'package:event_attendance_mobile/core/styles/palette.dart';
 import 'package:flutter/material.dart';
 
+/*
+  COMPONENT FOLDER: Common widgets that are reusable to the entire application
+
+  Reusable component for instances a query has empty values.
+
+  Usage:
+  List<type>.empty or List<type>.isNotEmpty 
+    return EmptyListMessage(message: string, subtitle: string);
+*/
+
 class EmptyListMessage extends StatelessWidget {
   final String message;
   final String? subtitle;
