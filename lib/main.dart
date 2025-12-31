@@ -1,6 +1,8 @@
 import 'package:event_attendance_mobile/core/config/database_helper.dart';
 import 'package:event_attendance_mobile/core/routes/app_routes.dart';
+import 'package:event_attendance_mobile/feature/present/data/repository/attendee_repoimpl.dart';
 import 'package:event_attendance_mobile/feature/present/data/repository/event_repoimpl.dart';
+import 'package:event_attendance_mobile/feature/present/presentation/attendees/bloc/attendee_cubit.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/dashboard/bloc/event_cubit.dart';
 import 'package:flutter/material.dart';
 // import 'dart:async';
@@ -15,13 +17,25 @@ void main() async {
   final sqlFliteDb = DatabaseHelper.instance;
 
   final eventRepository = EventRepoimpl(sqlFliteDb);
+  final attendeeRepository = AttendeeRepoimpl(db: sqlFliteDb);
 
   // So the Cubit has an application-wide lifecycle and is accessible across all routes
   runApp(
-    BlocProvider(
-      create: (_) => EventCubit(eventRepository),
-      child: const MyApp(), //Now EventCubit is available to all the routes
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (BuildContext context) => EventCubit(eventRepository),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => AttendeeCubit(attendeeRepository),
+        ),
+      ],
+      child: const MyApp(),
     ),
+    // BlocProvider(
+    //   create: (_) => EventCubit(eventRepository),
+    //   child: const MyApp(), //Now EventCubit is available to all the routes
+    // ),
   );
 }
 
