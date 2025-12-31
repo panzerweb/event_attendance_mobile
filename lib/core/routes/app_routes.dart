@@ -1,3 +1,4 @@
+import 'package:event_attendance_mobile/feature/present/presentation/attendees/pages/attendees_page.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/dashboard/pages/add_event.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/dashboard/pages/dashboard_view.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/event_details/pages/event_details.dart';
@@ -41,6 +42,12 @@ final GoRouter router = GoRouter(
               path: 'event/:eventId',
               builder: (context, state) {
                 return EventDetails(eventId: state.pathParameters['eventId']!);
+              },
+            ),
+            GoRoute(
+              path: 'attendees',
+              builder: (context, state) {
+                return const AttendeesPage();
               },
             ),
           ],
