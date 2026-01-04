@@ -306,7 +306,7 @@ class _EditEventState extends State<EditEvent> {
                     }, // Point to a function to add attendees
                     icon: const Icon(Icons.person_add),
                     style: IconButton.styleFrom(
-                      backgroundColor: Palette.secondaryBackground,
+                      backgroundColor: Palette.secondaryColor,
                       foregroundColor: Palette.darkTextPrimary,
                       padding: const EdgeInsets.all(12),
                       shape: RoundedRectangleBorder(

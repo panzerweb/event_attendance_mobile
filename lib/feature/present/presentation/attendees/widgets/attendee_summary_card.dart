@@ -15,7 +15,7 @@ class AttendeeSummaryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
-      color: Palette.primaryBackground,
+      color: Palette.primaryColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -68,7 +68,7 @@ class AttendeeSummaryCard extends StatelessWidget {
             ElevatedButton(
               onPressed: onViewPressed,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Palette.cardBg,
+                backgroundColor: Palette.darkCardBg,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),

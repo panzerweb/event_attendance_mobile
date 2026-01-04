@@ -20,7 +20,7 @@ class AttendeeTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: isBlacklisted
             ? const Color.fromARGB(255, 56, 13, 10)
-            : Palette.cardBg,
+            : Palette.darkCardBg,
         borderRadius: BorderRadius.circular(16),
         border: isBlacklisted
             ? Border.all(color: Colors.redAccent, width: 1)

@@ -19,7 +19,7 @@ class StatItem extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: Palette.cardBg,
+          color: Palette.darkCardBg,
           borderRadius: BorderRadius.circular(14),
         ),
         child: Row(

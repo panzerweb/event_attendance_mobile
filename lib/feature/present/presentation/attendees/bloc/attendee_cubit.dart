@@ -18,7 +18,15 @@ class AttendeeCubit extends Cubit<List<AttendeeEntity>> {
   final DateTime date = DateTime.now();
   String get formattedDate => DateFormat('yyyy-MM-dd').format(date);
 
-  AttendeeCubit(this.attendeeRepo) : super([]);
+  AttendeeCubit(this.attendeeRepo) : super([]) {
+    loadAllAttendees();
+  }
+
+  Future<void> loadAllAttendees() async {
+    final attendees = await attendeeRepo.loadAllAttendees();
+
+    emit(attendees);
+  }
 
   Future<void> loadAttendees(int eventId) async {
     final attendees = await attendeeRepo.getAttendees(eventId: eventId);

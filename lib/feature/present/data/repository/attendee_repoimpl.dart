@@ -10,6 +10,22 @@ class AttendeeRepoimpl implements AttendeeRepository {
   AttendeeRepoimpl({required this.db});
 
   @override
+  Future<List<AttendeeEntity>> loadAllAttendees() async {
+    try {
+      final databaseInstance = await db.database;
+      final List<Map<String, Object?>> attendees = await databaseInstance.query(
+        'attendees',
+      );
+
+      return attendees
+          .map((attendee) => AttendeeModel.fromMap(attendee).toEntity())
+          .toList();
+    } catch (e) {
+      throw Exception("Error fetching attendees: $e");
+    }
+  }
+
+  @override
   Future<List<AttendeeEntity>> getAttendees({required int eventId}) async {
     try {
       final databaseInstance = await db.database;

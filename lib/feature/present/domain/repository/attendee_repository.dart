@@ -3,6 +3,7 @@ import 'package:event_attendance_mobile/feature/present/domain/entities/event_en
 
 abstract class AttendeeRepository {
   Future<List<AttendeeEntity>> getAttendees({required int eventId});
+  Future<List<AttendeeEntity>> loadAllAttendees();
   Future<void> addAttendee(AttendeeEntity attendee);
   Future<void> updateAttendee(AttendeeEntity attendee);
   Future<void> deleteAttendee(int attendeeId);
