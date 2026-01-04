@@ -4,13 +4,18 @@ import 'package:event_attendance_mobile/core/components/scaffold_appbar.dart';
 import 'package:event_attendance_mobile/core/constant/priority_enums.dart';
 import 'package:event_attendance_mobile/core/helper/show_delete_dialog.dart';
 import 'package:event_attendance_mobile/core/styles/palette.dart';
+import 'package:event_attendance_mobile/feature/present/domain/entities/attendee_entity.dart';
 import 'package:event_attendance_mobile/feature/present/domain/entities/event_entity.dart';
+import 'package:event_attendance_mobile/feature/present/presentation/attendees/bloc/attendee_cubit.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/dashboard/bloc/event_cubit.dart';
+import 'package:event_attendance_mobile/feature/present/presentation/attendees/widgets/attendee_summary_card.dart';
+import 'package:event_attendance_mobile/feature/present/presentation/attendees/widgets/attendee_tile.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/event_details/widgets/build_card.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/event_details/widgets/build_datetime.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/event_details/widgets/build_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 const List<Map<int, PriorityEnums>> priorities = [
   {1: PriorityEnums.low},
@@ -27,12 +32,15 @@ class EditEvent extends StatefulWidget {
 }
 
 class _EditEventState extends State<EditEvent> {
-  // Initialize the controllers
+  // Initialize the controllers - EVENT
   late TextEditingController _nameController;
   late TextEditingController _descriptionController;
   late DateTime _startDate;
   late DateTime _endDate;
   late int _selectedPriority;
+
+  // controllers - ATTENDEE
+  final TextEditingController _attendeeNameController = TextEditingController();
 
   @override
   void initState() {
@@ -46,12 +54,16 @@ class _EditEventState extends State<EditEvent> {
     _startDate = widget.event.start_date!;
     _endDate = widget.event.end_date!;
     _selectedPriority = widget.event.priority_id!;
+
+    final eventId = widget.event.id;
+    context.read<AttendeeCubit>().loadAttendees(eventId!);
   }
 
   @override
   void dispose() {
     _nameController.dispose();
     _descriptionController.dispose();
+    _attendeeNameController.dispose();
     super.dispose();
   }
 
@@ -105,6 +117,47 @@ class _EditEventState extends State<EditEvent> {
     );
   }
 
+  Future<void> _addAttendeeDialog(int eventId) async {
+    try {
+      return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Enter attendee name'),
+            content: TextField(
+              controller: _attendeeNameController,
+              decoration: const InputDecoration(hintText: "Attendee Name"),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: const Text('Add'),
+                onPressed: () async {
+                  // Handle the submitted value
+                  await context.read<AttendeeCubit>().addAttendeeCubit(
+                    _attendeeNameController.text,
+                    eventId,
+                  );
+
+                  _attendeeNameController.clear();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } catch (e) {
+      throw Exception("Error showing dialog: $e");
+    }
+  }
+
+  // UI Rendering
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -194,6 +247,7 @@ class _EditEventState extends State<EditEvent> {
 
               /// ───────────── Priority ─────────────
               FieldLabel(message: "Priority"),
+
               DropdownButtonFormField<int>(
                 initialValue: _selectedPriority,
                 dropdownColor: Palette.textSecondary,
@@ -238,7 +292,7 @@ class _EditEventState extends State<EditEvent> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "List of Attendees",
+                    "Attendees",
                     style: TextStyle(
                       fontSize: 22,
                       color: Palette.darkTextPrimary,
@@ -248,11 +302,11 @@ class _EditEventState extends State<EditEvent> {
 
                   IconButton(
                     onPressed: () {
-                      null;
+                      _addAttendeeDialog(widget.event.id!);
                     }, // Point to a function to add attendees
                     icon: const Icon(Icons.person_add),
                     style: IconButton.styleFrom(
-                      backgroundColor: Palette.secondaryBackground,
+                      backgroundColor: Palette.secondaryColor,
                       foregroundColor: Palette.darkTextPrimary,
                       padding: const EdgeInsets.all(12),
                       shape: RoundedRectangleBorder(
@@ -265,15 +319,18 @@ class _EditEventState extends State<EditEvent> {
               const SizedBox(height: 8),
 
               // A condition will be added if there are attendees then show cards, if not, then show message
-              Card(
-                elevation: 4,
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: EmptyListMessage(
-                    message: "There are no attendees",
-                    subtitle: "Add one by pressing the '+' button",
-                  ),
-                ),
+              BlocBuilder<AttendeeCubit, List<AttendeeEntity>>(
+                builder: (context, attendees) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: AttendeeSummaryCard(
+                      attendeeCount: attendees.length,
+                      onViewPressed: () {
+                        context.push("/dashboard/attendees");
+                      },
+                    ),
+                  );
+                },
               ),
 
               const SizedBox(height: 20),

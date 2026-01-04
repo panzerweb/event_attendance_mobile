@@ -31,7 +31,7 @@ class History extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.history,
-                        size: 24,
+                        size: 32,
                         color: Palette.darkTextPrimary,
                       ),
                       const Text(

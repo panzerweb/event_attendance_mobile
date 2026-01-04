@@ -1,5 +1,6 @@
 import 'package:event_attendance_mobile/core/styles/palette.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 /*
   COMPONENT FOLDER: Common widgets that are reusable to the entire application
@@ -27,9 +28,16 @@ class ScaffoldAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Palette.primaryBackground,
+      backgroundColor: Palette.primaryColor,
       foregroundColor: Palette.textPrimary,
-      leading: Icon(Icons.logo_dev),
+      leading: Padding(
+        padding: const EdgeInsets.all(8),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Image.asset('assets/logo/logo.png', fit: BoxFit.cover),
+        ),
+      ),
+      centerTitle: true,
       title: Center(
         child: Text(
           title,
@@ -40,15 +48,7 @@ class ScaffoldAppbar extends StatelessWidget implements PreferredSizeWidget {
         IconButton(
           onPressed: () {
             // Utilize by GoRouter
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (BuildContext context) {
-            //       // Go to Profile Page
-            //       context.push(location)
-            //     },
-            //   ),
-            // );
+            context.push('/profile');
           },
           icon: Icon(Icons.person),
         ),

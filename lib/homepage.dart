@@ -17,7 +17,9 @@ class Homepage extends StatelessWidget {
     if (location.startsWith('/dashboard')) return 0;
     if (location.startsWith('/overview')) return 1;
     if (location.startsWith('/history')) return 2;
-    if (location.startsWith('/settings')) return 3;
+
+    // SETTINGS ROUTE DEPRECATED
+    // if (location.startsWith('/settings')) return 3;
 
     return 0;
   }
@@ -33,9 +35,11 @@ class Homepage extends StatelessWidget {
       case 2:
         context.go('/history');
         break;
-      case 3:
-        context.go('/settings');
-        break;
+
+      // SETTINGS ROUTE DEPRECATED
+      // case 3:
+      //   context.go('/settings');
+      //   break;
     }
   }
 
@@ -47,7 +51,7 @@ class Homepage extends StatelessWidget {
       body: child,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Palette.primaryBackground,
+        backgroundColor: Palette.primaryColor,
         fixedColor: Palette.textPrimary,
         unselectedItemColor: Palette.accentPurple,
         currentIndex: currentIndex,
@@ -62,10 +66,12 @@ class Homepage extends StatelessWidget {
             label: "Analytics",
           ),
           BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: "Settings",
-          ),
+
+          // SETTINGS ROUTE DEPRECATED
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.settings),
+          //   label: "Settings",
+          // ),
         ],
       ),
     );

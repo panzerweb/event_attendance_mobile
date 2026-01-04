@@ -54,7 +54,7 @@ class _HistoryTileState extends State<HistoryTile> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: Palette.cardBg,
+        color: Palette.darkCardBg,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(

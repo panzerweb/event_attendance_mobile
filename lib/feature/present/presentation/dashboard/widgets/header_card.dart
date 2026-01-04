@@ -33,7 +33,7 @@ class HeaderCard extends StatelessWidget {
       child: Card(
         elevation: 6,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: Palette.primaryBackground,
+        color: Palette.primaryColor,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 28, 20, 20),
           child: Column(

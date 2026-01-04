@@ -13,17 +13,20 @@ import 'package:flutter/material.dart';
 */
 
 class Palette {
-  static const Color primaryBackground = Color(0xFF453B9C);
-  static const Color secondaryBackground = Color(0xFFF9A825);
-  static const Color cardBg = Color(0xFF1D1942);
+  static const Color primaryColor = Color.fromRGBO(69, 59, 156, 1);
+  static const Color secondaryColor = Color.fromRGBO(249, 168, 37, 1);
 
-  static const Color fieldBg = Color(0xFF26215C);
-  static const Color accentPurple = Color(0xFF6C63FF);
+  static const Color darkCardBg = Color.fromRGBO(29, 25, 66, 1);
+  static const Color lightCardBg = Color.fromRGBO(255, 255, 255, 1);
 
-  static const Color textPrimary = Colors.white;
-  static const Color textSecondary = Color(0xFFB6B3E6);
+  static const Color fieldBg = Color.fromRGBO(38, 33, 92, 1);
+  static const Color accentPurple = Color.fromRGBO(108, 99, 255, 1);
 
-  static const Color darkTextPrimary = Color(0xFF212121);
-  static const Color darkTextSecondary = Color(0xFF424242);
-  static const Color darkTextAccent = Color(0xFF595959);
+  static const Color textPrimary = Color.fromRGBO(255, 255, 255, 1);
+  static const Color textSecondary = Color.fromRGBO(182, 179, 230, 1);
+  static const Color textAccent = Color.fromRGBO(151, 148, 191, 1);
+
+  static const Color darkTextPrimary = Color.fromRGBO(33, 33, 33, 1);
+  static const Color darkTextSecondary = Color.fromRGBO(66, 66, 66, 1);
+  static const Color darkTextAccent = Color.fromRGBO(89, 89, 89, 1);
 }

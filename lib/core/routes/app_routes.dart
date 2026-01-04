@@ -1,9 +1,10 @@
+import 'package:event_attendance_mobile/feature/present/presentation/attendees/pages/attendees_page.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/dashboard/pages/add_event.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/dashboard/pages/dashboard_view.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/event_details/pages/event_details.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/analytics/pages/overview.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/history/pages/history.dart';
-import 'package:event_attendance_mobile/feature/present/presentation/settings/pages/settings.dart';
+import 'package:event_attendance_mobile/feature/profile/presentation/pages/profile_page.dart';
 import 'package:event_attendance_mobile/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -43,6 +44,12 @@ final GoRouter router = GoRouter(
                 return EventDetails(eventId: state.pathParameters['eventId']!);
               },
             ),
+            GoRoute(
+              path: 'attendees',
+              builder: (context, state) {
+                return const AttendeesPage();
+              },
+            ),
           ],
         ),
 
@@ -52,9 +59,11 @@ final GoRouter router = GoRouter(
           builder: (context, state) => const Overview(),
         ),
         GoRoute(path: '/history', builder: (context, state) => const History()),
+
+        // Profile Routes
         GoRoute(
-          path: '/settings',
-          builder: (context, state) => const Settings(),
+          path: '/profile',
+          builder: (context, state) => const ProfilePage(),
         ),
       ],
     ),

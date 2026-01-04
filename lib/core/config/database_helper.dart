@@ -121,7 +121,7 @@ class DatabaseHelper {
     await db.execute('''
       CREATE TABLE $attendeesTable (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        attendees_name TEXT,
+        attendee_name TEXT,
         event_id INTEGER,
         is_blacklisted INTEGER DEFAULT 0,
         created_at TEXT,
