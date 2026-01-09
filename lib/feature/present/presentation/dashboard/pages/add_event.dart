@@ -3,7 +3,6 @@ import 'package:event_attendance_mobile/core/components/scaffold_appbar.dart';
 import 'package:event_attendance_mobile/core/constant/priority_enums.dart';
 import 'package:event_attendance_mobile/core/styles/palette.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/dashboard/bloc/event_cubit.dart';
-import 'package:event_attendance_mobile/feature/present/presentation/event_details/widgets/build_card.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/event_details/widgets/build_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -93,7 +92,14 @@ class _AddEventState extends State<AddEvent> {
   Widget build(BuildContext context) {
     return Scaffold(
       // Navbar
-      appBar: ScaffoldAppbar(title: "Add Event"),
+      appBar: AppBar(
+        title: const Text(
+          "Add Event",
+          style: TextStyle(color: Palette.textPrimary),
+        ),
+        backgroundColor: Palette.primaryColor,
+        foregroundColor: Palette.textPrimary,
+      ),
       // Body
       body: SingleChildScrollView(
         child: Padding(

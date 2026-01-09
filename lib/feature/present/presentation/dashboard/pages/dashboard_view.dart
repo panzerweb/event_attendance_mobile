@@ -1,5 +1,6 @@
 import 'package:event_attendance_mobile/core/components/empty_list_message.dart';
 import 'package:event_attendance_mobile/core/components/scaffold_appbar.dart';
+import 'package:event_attendance_mobile/core/helper/shared_helper.dart';
 import 'package:event_attendance_mobile/core/styles/palette.dart';
 import 'package:event_attendance_mobile/feature/present/domain/entities/event_entity.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/dashboard/bloc/event_cubit.dart';
@@ -8,17 +9,40 @@ import 'package:event_attendance_mobile/feature/present/presentation/dashboard/w
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DashboardView extends StatelessWidget {
+class DashboardView extends StatefulWidget {
   const DashboardView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // placeholder for a defined User Class
-    final String user = "Panzerweb";
+  State<DashboardView> createState() => _DashboardViewState();
+}
 
+class _DashboardViewState extends State<DashboardView> {
+  String? username;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _loadProfile();
+  }
+
+  Future<void> _loadProfile() async {
+    final loadUsername = await SharedHelper.loadProfile('username');
+
+    setState(() {
+      username = loadUsername;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       // Navigation Bar
-      appBar: ScaffoldAppbar(title: "Track Your Events"),
+      appBar: ScaffoldAppbar(
+        title: "Track Your Events",
+        username: username,
+        onProfileUpdate: _loadProfile,
+      ),
       // Provides the list of events with buttons to correspond to the Cubit methods
       // The main interface of dashboard
       body: BlocBuilder<EventCubit, List<EventEntity>>(
@@ -33,7 +57,7 @@ class DashboardView extends StatelessWidget {
                 child: Column(
                   children: [
                     // Header Card for the Dashboard
-                    HeaderCard(user: user, events: events),
+                    HeaderCard(user: username, events: events),
 
                     SizedBox(height: 12),
 

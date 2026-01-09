@@ -106,15 +106,21 @@ class _EditEventState extends State<EditEvent> {
 
   // DELETE AN EVENT
   Future<void> _deleteEvent(EventEntity event) async {
-    await showDeleteDialog<EventEntity>(
-      context: context,
-      entity: event,
-      title: "Delete Event",
-      message: "Are you sure you want to delete this event?",
-      onDelete: (event) {
-        return context.read<EventCubit>().deleteEventCubit(event);
-      },
-    );
+    try {
+      await showDeleteDialog<EventEntity>(
+        context: context,
+        entity: event,
+        title: "Delete Event",
+        message: "Are you sure you want to delete this event?",
+        onDelete: (event) {
+          return context.read<EventCubit>().deleteEventCubit(event);
+        },
+      );
+
+      context.pop();
+    } catch (e) {
+      throw Exception("Error deleting event: $e");
+    }
   }
 
   Future<void> _addAttendeeDialog(int eventId) async {
@@ -161,7 +167,14 @@ class _EditEventState extends State<EditEvent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ScaffoldAppbar(title: "Edit Event"),
+      appBar: AppBar(
+        title: const Text(
+          "Edit Event",
+          style: TextStyle(color: Palette.textPrimary),
+        ),
+        backgroundColor: Palette.primaryColor,
+        foregroundColor: Palette.textPrimary,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: SingleChildScrollView(

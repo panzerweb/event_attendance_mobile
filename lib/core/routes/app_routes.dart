@@ -4,7 +4,10 @@ import 'package:event_attendance_mobile/feature/present/presentation/dashboard/p
 import 'package:event_attendance_mobile/feature/present/presentation/event_details/pages/event_details.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/analytics/pages/overview.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/history/pages/history.dart';
+import 'package:event_attendance_mobile/feature/profile/presentation/pages/about/about_app_screen.dart';
+import 'package:event_attendance_mobile/feature/profile/presentation/pages/privacy/privacy_data_screen.dart';
 import 'package:event_attendance_mobile/feature/profile/presentation/pages/profile_page.dart';
+import 'package:event_attendance_mobile/feature/profile/presentation/pages/set_profile_page.dart';
 import 'package:event_attendance_mobile/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -59,11 +62,24 @@ final GoRouter router = GoRouter(
           builder: (context, state) => const Overview(),
         ),
         GoRoute(path: '/history', builder: (context, state) => const History()),
-
-        // Profile Routes
+      ],
+    ),
+    // Profile Routes
+    GoRoute(
+      path: '/profile',
+      builder: (context, state) => const ProfilePage(),
+      routes: [
         GoRoute(
-          path: '/profile',
-          builder: (context, state) => const ProfilePage(),
+          path: 'user',
+          builder: (context, state) => const SetProfilePage(),
+        ),
+        GoRoute(
+          path: 'about',
+          builder: (context, state) => const AboutAppScreen(),
+        ),
+        GoRoute(
+          path: 'privacy',
+          builder: (context, state) => const PrivacyDataScreen(),
         ),
       ],
     ),

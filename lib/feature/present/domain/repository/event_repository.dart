@@ -15,4 +15,6 @@ abstract class EventRepository {
   Future<void> updateEvent(EventEntity event);
 
   Future<void> deleteEvent(int id);
+
+  Future<void> clearAllEvents();
 }

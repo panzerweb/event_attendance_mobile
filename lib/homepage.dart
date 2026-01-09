@@ -24,7 +24,7 @@ class Homepage extends StatelessWidget {
     return 0;
   }
 
-  void _onTap(BuildContext context, int index) {
+  void _onTap(BuildContext context, int index) async {
     switch (index) {
       case 0:
         context.go('/dashboard');

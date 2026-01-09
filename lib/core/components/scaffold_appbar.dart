@@ -23,7 +23,15 @@ import 'package:go_router/go_router.dart';
 
 class ScaffoldAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  const ScaffoldAppbar({super.key, required this.title});
+  final String? username;
+  final VoidCallback? onProfileUpdate;
+
+  const ScaffoldAppbar({
+    super.key,
+    required this.title,
+    this.username,
+    this.onProfileUpdate,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +42,10 @@ class ScaffoldAppbar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.all(8),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: Image.asset('assets/logo/logo.png', fit: BoxFit.cover),
+          child: Image.asset(
+            'assets/logo/transparent_logo.png',
+            fit: BoxFit.cover,
+          ),
         ),
       ),
       centerTitle: true,
@@ -46,9 +57,11 @@ class ScaffoldAppbar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: <Widget>[
         IconButton(
-          onPressed: () {
-            // Utilize by GoRouter
-            context.push('/profile');
+          onPressed: () async {
+            await context.push('/profile');
+            if (onProfileUpdate != null) {
+              onProfileUpdate!(); // reload dashboard username
+            }
           },
           icon: Icon(Icons.person),
         ),

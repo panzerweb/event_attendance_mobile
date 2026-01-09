@@ -1,3 +1,4 @@
+import 'package:event_attendance_mobile/core/components/text_scale_cubit.dart';
 import 'package:event_attendance_mobile/core/config/database_helper.dart';
 import 'package:event_attendance_mobile/core/routes/app_routes.dart';
 import 'package:event_attendance_mobile/feature/present/data/repository/attendee_repoimpl.dart';
@@ -29,6 +30,7 @@ void main() async {
         BlocProvider(
           create: (BuildContext context) => AttendeeCubit(attendeeRepository),
         ),
+        BlocProvider(create: (BuildContext context) => TextScaleCubit()),
       ],
       child: const MyApp(),
     ),
@@ -44,9 +46,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      routerConfig: router,
+    return BlocBuilder<TextScaleCubit, double>(
+      builder: (context, textScale) {
+        return MediaQuery(
+          data: MediaQuery.of(
+            context,
+          ).copyWith(textScaler: TextScaler.linear(textScale)),
+          child: MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            routerConfig: router,
+          ),
+        );
+      },
     );
   }
 }

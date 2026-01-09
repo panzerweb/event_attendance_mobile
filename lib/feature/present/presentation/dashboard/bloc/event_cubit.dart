@@ -79,6 +79,13 @@ class EventCubit extends Cubit<List<EventEntity>> {
     loadEvents();
   }
 
+  // Clear all events
+  Future<void> clearAllEventsCubit() async {
+    await eventRepo.clearAllEvents();
+
+    loadEvents();
+  }
+
   // Update only the is_complete status of the event
   Future<void> toggleEventCubit(EventEntity event) async {
     final updatedStatus = event.toggleCompletion();

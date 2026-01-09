@@ -88,7 +88,7 @@ class _AttendeesPageState extends State<AttendeesPage> {
                       onSelected: (value) {
                         setState(() {
                           _selectedOption = value;
-                          print(_selectedOption);
+                          // debugPrint(_selectedOption);
                         });
                       },
                       dropdownMenuEntries: attendeeStatus.entries.map((entry) {

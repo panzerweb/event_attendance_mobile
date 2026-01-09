@@ -125,7 +125,7 @@ class DatabaseHelper {
         event_id INTEGER,
         is_blacklisted INTEGER DEFAULT 0,
         created_at TEXT,
-        FOREIGN KEY (event_id) REFERENCES $eventTable(id)
+        FOREIGN KEY (event_id) REFERENCES $eventTable(id) ON DELETE CASCADE
       )
     ''');
   }

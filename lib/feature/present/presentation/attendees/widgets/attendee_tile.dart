@@ -1,16 +1,32 @@
 import 'package:event_attendance_mobile/core/helper/current_date.dart';
+import 'package:event_attendance_mobile/core/helper/show_delete_dialog.dart';
 import 'package:event_attendance_mobile/core/styles/palette.dart';
 import 'package:event_attendance_mobile/feature/present/domain/entities/attendee_entity.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/attendees/bloc/attendee_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AttendeeTile extends StatelessWidget {
+class AttendeeTile extends StatefulWidget {
   final AttendeeEntity attendee;
 
   const AttendeeTile({super.key, required this.attendee});
 
-  bool get isBlacklisted => attendee.is_blacklisted == true;
+  @override
+  State<AttendeeTile> createState() => _AttendeeTileState();
+}
+
+class _AttendeeTileState extends State<AttendeeTile> {
+  bool get isBlacklisted => widget.attendee.is_blacklisted == true;
+
+  Future<void> _deleteAttendee(AttendeeEntity attendee) async {
+    await showDeleteDialog<AttendeeEntity>(
+      context: context,
+      entity: attendee,
+      message: 'Are you sure you wanna delete this attendee?',
+      onDelete: (event) =>
+          context.read<AttendeeCubit>().deleteAttendeeCubit(event),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +73,7 @@ class AttendeeTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    attendee.attendee_name ?? "Unknown Attendee",
+                    widget.attendee.attendee_name ?? "Unknown Attendee",
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -95,7 +111,7 @@ class AttendeeTile extends StatelessWidget {
                   ),
                   onPressed: () {
                     context.read<AttendeeCubit>().toggleAttendeeStatus(
-                      attendee,
+                      widget.attendee,
                     );
                   },
                 ),
@@ -103,8 +119,8 @@ class AttendeeTile extends StatelessWidget {
                 IconButton(
                   tooltip: "Delete attendee",
                   icon: const Icon(Icons.delete, color: Colors.grey),
-                  onPressed: () {
-                    context.read<AttendeeCubit>().deleteAttendeeCubit(attendee);
+                  onPressed: () async {
+                    _deleteAttendee(widget.attendee);
                   },
                 ),
               ],

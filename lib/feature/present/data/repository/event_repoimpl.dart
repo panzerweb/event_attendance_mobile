@@ -73,4 +73,15 @@ class EventRepoimpl implements EventRepository {
       throw Exception('Error updating event: $e');
     }
   }
+
+  @override
+  Future<void> clearAllEvents() async {
+    try {
+      final databaseInstance = await db.database;
+
+      await databaseInstance.delete('events');
+    } catch (e) {
+      throw Exception("Error clearing all events");
+    }
+  }
 }
