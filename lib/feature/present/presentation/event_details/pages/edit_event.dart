@@ -1,6 +1,4 @@
-import 'package:event_attendance_mobile/core/components/empty_list_message.dart';
 import 'package:event_attendance_mobile/core/components/field_label.dart';
-import 'package:event_attendance_mobile/core/components/scaffold_appbar.dart';
 import 'package:event_attendance_mobile/core/constant/priority_enums.dart';
 import 'package:event_attendance_mobile/core/helper/show_delete_dialog.dart';
 import 'package:event_attendance_mobile/core/styles/palette.dart';
@@ -9,10 +7,9 @@ import 'package:event_attendance_mobile/feature/present/domain/entities/event_en
 import 'package:event_attendance_mobile/feature/present/presentation/attendees/bloc/attendee_cubit.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/dashboard/bloc/event_cubit.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/attendees/widgets/attendee_summary_card.dart';
-import 'package:event_attendance_mobile/feature/present/presentation/attendees/widgets/attendee_tile.dart';
-import 'package:event_attendance_mobile/feature/present/presentation/event_details/widgets/build_card.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/event_details/widgets/build_datetime.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/event_details/widgets/build_textfield.dart';
+import 'package:event_attendance_mobile/feature/present/presentation/event_details/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -329,9 +326,9 @@ class _EditEventState extends State<EditEvent> {
                   ),
                 ],
               ),
+
               const SizedBox(height: 8),
 
-              // A condition will be added if there are attendees then show cards, if not, then show message
               BlocBuilder<AttendeeCubit, List<AttendeeEntity>>(
                 builder: (context, attendees) {
                   return Padding(
@@ -339,7 +336,10 @@ class _EditEventState extends State<EditEvent> {
                     child: AttendeeSummaryCard(
                       attendeeCount: attendees.length,
                       onViewPressed: () {
-                        context.push("/dashboard/attendees");
+                        context.push(
+                          "/dashboard/attendees",
+                          extra: widget.event,
+                        );
                       },
                     ),
                   );
@@ -352,44 +352,20 @@ class _EditEventState extends State<EditEvent> {
               Row(
                 children: [
                   Expanded(
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton.icon(
-                        icon: const Icon(Icons.delete),
-                        label: const Text("Delete Event"),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red[700],
-                          foregroundColor: Palette.textPrimary,
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        onPressed: () async {
-                          _deleteEvent(widget.event);
-                        },
-                      ),
+                    child: SubmitButton(
+                      handleSubmitOnPressed: () async {
+                        _deleteEvent(widget.event);
+                      },
+                      backgroundColor: Palette.redPrimaryColor,
                     ),
                   ),
 
                   const SizedBox(width: 12),
 
                   Expanded(
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton.icon(
-                        icon: const Icon(Icons.save),
-                        label: const Text("Update Event"),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Palette.fieldBg,
-                          foregroundColor: Palette.textPrimary,
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        onPressed: _updateEventFields,
-                      ),
+                    child: SubmitButton(
+                      handleSubmitOnPressed: _updateEventFields,
+                      backgroundColor: Palette.fieldBg,
                     ),
                   ),
                 ],

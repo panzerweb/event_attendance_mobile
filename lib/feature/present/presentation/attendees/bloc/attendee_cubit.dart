@@ -1,5 +1,4 @@
 import 'package:event_attendance_mobile/feature/present/domain/entities/attendee_entity.dart';
-import 'package:event_attendance_mobile/feature/present/domain/entities/event_entity.dart';
 import 'package:event_attendance_mobile/feature/present/domain/repository/attendee_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';

@@ -1,9 +1,9 @@
 import 'package:event_attendance_mobile/core/components/field_label.dart';
-import 'package:event_attendance_mobile/core/components/scaffold_appbar.dart';
 import 'package:event_attendance_mobile/core/constant/priority_enums.dart';
 import 'package:event_attendance_mobile/core/styles/palette.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/dashboard/bloc/event_cubit.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/event_details/widgets/build_textfield.dart';
+import 'package:event_attendance_mobile/feature/present/presentation/event_details/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,7 +40,7 @@ class _AddEventState extends State<AddEvent> {
     super.dispose();
   }
 
-  // DatePicker
+  // Picking dates
   Future<void> _pickDate({
     required DateTime? initialDate,
     required Function(DateTime) onSelected,
@@ -250,21 +250,9 @@ class _AddEventState extends State<AddEvent> {
                 const SizedBox(height: 24),
 
                 // Submit Button
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    icon: const Icon(Icons.save),
-                    label: const Text("Create Event"),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Palette.fieldBg,
-                      foregroundColor: Palette.textPrimary,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    onPressed: _submit,
-                  ),
+                SubmitButton(
+                  handleSubmitOnPressed: _submit,
+                  backgroundColor: Palette.fieldBg,
                 ),
               ],
             ),

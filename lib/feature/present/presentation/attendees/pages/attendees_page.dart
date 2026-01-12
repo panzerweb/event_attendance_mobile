@@ -3,6 +3,7 @@ import 'package:event_attendance_mobile/core/components/scaffold_appbar.dart';
 import 'package:event_attendance_mobile/core/constant/attendee_status_enums.dart';
 import 'package:event_attendance_mobile/core/styles/palette.dart';
 import 'package:event_attendance_mobile/feature/present/domain/entities/attendee_entity.dart';
+import 'package:event_attendance_mobile/feature/present/domain/entities/event_entity.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/attendees/bloc/attendee_cubit.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/attendees/widgets/attendee_tile.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,9 @@ final Map<AttendeeStatusEnums, String> attendeeStatus = {
 };
 
 class AttendeesPage extends StatefulWidget {
-  const AttendeesPage({super.key});
+  final EventEntity event;
+
+  const AttendeesPage({super.key, required this.event});
 
   @override
   State<AttendeesPage> createState() => _AttendeesPageState();
@@ -68,7 +71,7 @@ class _AttendeesPageState extends State<AttendeesPage> {
                           icon: Icon(Icons.turn_left, size: 28),
                         ),
                         Text(
-                          "Attendees",
+                          "Attendees for ${widget.event.event_name}",
                           style: TextStyle(
                             fontSize: 22,
                             color: Palette.darkTextPrimary,

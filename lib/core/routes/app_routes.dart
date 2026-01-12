@@ -1,5 +1,6 @@
+import 'package:event_attendance_mobile/feature/present/domain/entities/event_entity.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/attendees/pages/attendees_page.dart';
-import 'package:event_attendance_mobile/feature/present/presentation/dashboard/pages/add_event.dart';
+import 'package:event_attendance_mobile/feature/present/presentation/event_details/pages/add_event.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/dashboard/pages/dashboard_view.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/event_details/pages/event_details.dart';
 import 'package:event_attendance_mobile/feature/present/presentation/analytics/pages/overview.dart';
@@ -50,7 +51,8 @@ final GoRouter router = GoRouter(
             GoRoute(
               path: 'attendees',
               builder: (context, state) {
-                return const AttendeesPage();
+                final event = state.extra as EventEntity;
+                return AttendeesPage(event: event);
               },
             ),
           ],

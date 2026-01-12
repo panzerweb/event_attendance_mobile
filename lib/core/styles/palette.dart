@@ -29,4 +29,6 @@ class Palette {
   static const Color darkTextPrimary = Color.fromRGBO(33, 33, 33, 1);
   static const Color darkTextSecondary = Color.fromRGBO(66, 66, 66, 1);
   static const Color darkTextAccent = Color.fromRGBO(89, 89, 89, 1);
+
+  static const Color redPrimaryColor = Color.fromRGBO(211, 47, 47, 1);
 }
