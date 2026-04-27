@@ -329,6 +329,10 @@ class _EditEventState extends State<EditEvent> {
 
               const SizedBox(height: 8),
 
+              /* 
+                Bloc builders for Additional cubits.
+                Notes Cubit and Attendee Cubit will be used here
+              */
               BlocBuilder<AttendeeCubit, List<AttendeeEntity>>(
                 builder: (context, attendees) {
                   return Padding(

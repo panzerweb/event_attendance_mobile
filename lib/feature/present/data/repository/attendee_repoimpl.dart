@@ -1,6 +1,5 @@
 import 'package:event_attendance_mobile/core/config/database_helper.dart';
 import 'package:event_attendance_mobile/feature/present/data/models/attendee_model.dart';
-// import 'package:event_attendance_mobile/feature/present/data/models/event_model.dart';
 import 'package:event_attendance_mobile/feature/present/domain/entities/attendee_entity.dart';
 import 'package:event_attendance_mobile/feature/present/domain/repository/attendee_repository.dart';
 
